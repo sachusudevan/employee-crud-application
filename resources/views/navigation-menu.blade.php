@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
+                    <a href="{{route('employees.list')}}" class="nav-link {{Request()->routeIs('employees.list') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Employees</p>
                     </a>

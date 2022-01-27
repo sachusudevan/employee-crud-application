@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard-auth');
+
+Route::prefix('employees')->group(function () 
+{
+    Route::get('/', App\Http\Livewire\Employee\EmployeesList::class )->name('employees.list');
+    Route::get('add', App\Http\Livewire\Employee\AddOrEditEmployee::class )->name('employees.add');
+}); 
+
+
+

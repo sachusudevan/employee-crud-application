@@ -11,6 +11,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">    
+
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Tempusdominus Bootstrap 4 -->
@@ -27,6 +33,19 @@
         <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
         <!-- summernote -->
         <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+
+        <link rel="stylesheet" href="{{asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+        <!-- Bootstrap4 Duallistbox -->
+        <link rel="stylesheet" href="{{asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+        <!-- BS Stepper -->
+        <link rel="stylesheet" href="{{asset('plugins/bs-stepper/css/bs-stepper.min.css')}}">
 
 
         @livewireStyles
@@ -52,15 +71,15 @@
 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
-                    
 
-                    
+
+
                     <li class="nav-item">
                         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                             <i class="fas fa-expand-arrows-alt"></i>
                         </a>
                     </li>
-                    
+
                 </ul>
             </nav>
             <!-- /.navbar -->
@@ -74,7 +93,7 @@
                 {{ $slot }}
             </main>
 
-            
+
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Control sidebar content goes here -->
@@ -96,6 +115,22 @@
         <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
         <!-- Bootstrap 4 -->
         <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+        <!-- DataTables  & Plugins -->
+        <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('plugins/jszip/jszip.min.js')}}"></script>
+        <script src="{{asset('plugins/pdfmake/pdfmake.min.js')}}"></script>
+        <script src="{{asset('plugins/pdfmake/vfs_fonts.js')}}"></script>
+        <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+        <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
+
         <!-- ChartJS -->
         <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
         <!-- Sparkline -->
@@ -116,8 +151,68 @@
         <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
         <!-- AdminLTE App -->
         <script src="{{asset('dist/js/adminlte.js')}}"></script>
+
+        <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+        <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
         
+        <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+        <!-- Bootstrap4 Duallistbox -->
+        <script src="{{asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+        <!-- InputMask -->
+        <script src="{{asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+        <!-- bs-custom-file-input -->
+        <script src="{{asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
 
+
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //Initialize Select2 Elements
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                });
+                bsCustomFileInput.init();
+            })
+            
+            $(document).ready(function () {
+                $('.swalDefaultSuccess').click(function() {
+                    Toast.fire({
+                      icon: 'success',
+                      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                    })
+                });
+           })
+           
+           
+           function Toasts()
+            {
+                toastr["success"]("Are you the six fingered man?", "Test")
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": true,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+           
+        </script
+        
+        
+        
+        @yield('script')
     </body>
 </html>
