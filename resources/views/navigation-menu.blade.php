@@ -10,7 +10,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{asset('dist/img/avatar4.png')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="javascript:void(0);" class="d-block">Sachu S</a>
@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('employees.list')}}" class="nav-link {{Request()->routeIs('employees.list') ? 'active' : ''}}">
+                    <a href="{{route('employees.list')}}" class="nav-link {{Request()->routeIs('employees.list') || Request()->routeIs('employees.add') || Request()->routeIs('employees.edit') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Employees</p>
                     </a>

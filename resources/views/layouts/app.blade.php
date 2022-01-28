@@ -47,8 +47,15 @@
         <!-- BS Stepper -->
         <link rel="stylesheet" href="{{asset('plugins/bs-stepper/css/bs-stepper.min.css')}}">
 
-
+        
+        
         @livewireStyles
+        
+        <!-- jQuery -->
+        <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+        
+        
+        
 
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
@@ -109,8 +116,7 @@
         @livewireScripts
 
 
-        <!-- jQuery -->
-        <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+        
         <!-- jQuery UI 1.11.4 -->
         <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
         <!-- Bootstrap 4 -->
@@ -164,12 +170,28 @@
         <script src="{{asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
 
-
+        
         <script>
+            $(document).ready(function(){
+                @foreach($errors->all() as $error)
+                    Toasts("{{ $error }}", '', 'error');
+                @endforeach
+
+
+                @if(session()->has('message'))
+                    Toasts("{{ session('message') }}", '', "success");
+                @endif
+                
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            });
             $(function () {
                 //Initialize Select2 Elements
                 $('.select2').select2()
-
                 //Initialize Select2 Elements
                 $('.select2bs4').select2({
                     theme: 'bootstrap4'
@@ -177,19 +199,10 @@
                 bsCustomFileInput.init();
             })
             
-            $(document).ready(function () {
-                $('.swalDefaultSuccess').click(function() {
-                    Toast.fire({
-                      icon: 'success',
-                      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-                    })
-                });
-           })
            
-           
-           function Toasts()
+            function Toasts(title,message, type)
             {
-                toastr["success"]("Are you the six fingered man?", "Test")
+                toastr[type](title, message)
                 toastr.options = {
                     "closeButton": true,
                     "debug": false,
@@ -209,10 +222,10 @@
                 }
             }
            
-        </script
-        
-        
+        </script>
         
         @yield('script')
+        
+        
     </body>
 </html>
