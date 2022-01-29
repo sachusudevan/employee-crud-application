@@ -17,6 +17,7 @@ class Employee extends Model
         'email',        
         'photo',
         'designation',
+        'password',
     ];
     
     

@@ -34,7 +34,6 @@
         <!-- summernote -->
         <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
 
-        <link rel="stylesheet" href="{{asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
         <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
 
         <!-- Bootstrap Color Picker -->
@@ -158,8 +157,9 @@
         <!-- AdminLTE App -->
         <script src="{{asset('dist/js/adminlte.js')}}"></script>
 
-        <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
         <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
         <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
         <!-- Bootstrap4 Duallistbox -->

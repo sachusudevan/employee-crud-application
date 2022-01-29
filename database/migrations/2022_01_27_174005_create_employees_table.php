@@ -18,6 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('password');
             $table->string('photo')->nullable();
             $table->bigInteger('designation')->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

@@ -26,7 +26,7 @@
                     <h3 class="card-title">{{$title ?? ''}}</h3>
                 </div>
                 <!-- /.card-header -->
-                <form class="form-horizontal" @if($edit == true) ? wire:submit.prevent="update" : wire:submit.prevent="save" @endif>
+                <form class="form-horizontal" wire:submit.prevent="save">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -60,12 +60,15 @@
 
                                 </div>
                             </div>                        
+
+
                             <div class="col-md-6">
-                                <div class="form-group" wire:ignore>
+                                <div class="form-group" >
                                     <label>Designation <span style="color: red;">*</span></label>
-                                    <select class="form-control select2bs4 @error('designation') is-invalid @enderror"  wire:model="designation" id="cust-designation" name="designation" style="width: 100%;" placeholder="Select Designation">
+                                    <select class="form-control select2bs4 @error('designation') is-invalid @enderror" wire:change="changeDesignationEvent($event.target.value)" id="cust-designation" name="designation" style="width: 100%;" placeholder="Select Designation">
+                                        <option value="">-- Select Designation --</option>
                                         @foreach($designations as $value)
-                                            <option value="{{$value->id}}" >{{$value->designation}}</option>
+                                            <option value="{{$value->id}}" @if($designation == $value->id) selected @endif >{{$value->designation}}</option>
                                         @endforeach
                                     </select>
                                     @error('designation')
@@ -73,15 +76,21 @@
                                     @enderror
                                 </div>
                             </div>
+
                             
                             
                             <div class="col-md-6 employee-photo-view">
                                 @if ($photo)
-                                Photo Preview:
-                                <div class="mt-1">
-                                    <img width="100" height="100" src="{{ Storage::url($photo) }}">
-                                </div>
+                                    <div class="mt-1">
+                                        <img src="{{ $photo->temporaryUrl() }}" width="50"  height="50">
+                                    </div>
                                 @endif
+                                @if (!$photo && isset($employee->photo))
+                                    <div class="mt-1">  
+                                        <img src="{{ Storage::url($employee->photo) }}" width="50"  height="50">
+                                    </div>
+                                @endif
+                                
                             </div>
 
 
@@ -90,7 +99,12 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-info ">Save</button>
+                        <button type="submit" class="btn btn-info ">
+                            <div wire:loading wire:target="save">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </div>
+                            Save
+                        </button>
                         <a  href="{{route('employees.list')}}" class="btn btn-default float-right">Cancel</a>
                     </div>
                 </form>
@@ -110,10 +124,6 @@
         $('#cust-designation').on('change', function (e) {
             @this.set('designation', e.target.value);
         });
-
-        
-        @this.set('designation', $('#cust-designation').val());
-
 
     });
     

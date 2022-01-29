@@ -25,6 +25,7 @@ Route::prefix('employees')->group(function ()
     Route::get('edit/{id}', App\Http\Livewire\Employee\AddOrEditEmployee::class )->name('employees.edit');
     
     Route::post('load-employeeslist', [App\Http\Controllers\EmployyesController::class, 'loadEmployeeslist'] )->name('get-employees-list-for-datatable');
+    Route::post('destroyEmployee', [App\Http\Controllers\EmployyesController::class, 'destroyEmployee'] )->name('destroy-employee-record');
     
     
     

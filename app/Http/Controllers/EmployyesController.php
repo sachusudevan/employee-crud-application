@@ -7,9 +7,15 @@ use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\DB;
+use \App\Http\Traits\Helpers\ApiResponseTrait;
 
 class EmployyesController extends Controller
 {
+    
+    use ApiResponseTrait;
+    
+    
     public function loadEmployeeslist(Request $request)
     {
         $input = $request->all();
@@ -17,7 +23,6 @@ class EmployyesController extends Controller
         $list = array();
         foreach ( $employees_data as $data )
         {
-            $id = encrypt($data->id);
             $list[] = self::formatEmployeeslistForDatatable($data);
         }
         $result = array(
@@ -45,4 +50,34 @@ class EmployyesController extends Controller
         
         return $data;
     }
+    
+    
+    
+    
+    
+    public function destroyEmployee(Employee $employee,Request $request)
+    {
+        DB::beginTransaction();
+        $response = array();
+        try {
+            $data = $employee->find($request->uid);
+            if(isset($data->id))
+            {
+                Storage::delete($data->photo);
+                $data->delete();
+                $response['success'] = true;
+            }else{
+                $response['success'] = false;
+            }
+            DB::commit();
+        } catch (Exception $ex) {
+            $response['success'] = false;
+            $response['message'] = 'Something Went wrong';
+            DB::rollBack();
+        }
+        return $this->apiResponse($response,200);
+    }
+    
+    
+    
 }

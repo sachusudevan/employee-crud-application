@@ -80,16 +80,7 @@
         @foreach($errors->all() as $error)
             Toasts("{{ $error }}", '', 'error');
         @endforeach
-        
-        $('#example1').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
+       
         
         var oTable = $('#employees-datatable').DataTable({
             "oLanguage": {
@@ -105,7 +96,6 @@
 
                 }
             },
-//            , "orderable": false
             "columns": [
                 {"data": null},
                 {"data": "photo"},
@@ -152,7 +142,7 @@
                     "orderable": false,
                     "targets": 7,
                     'render': function (data, type, full, meta) {
-                        return '<button class="btn btn-danger btn-xs delete_record" data-id="'+data+'"  title="Delete"><i class="fa fa-trash"></i></button>';
+                        return '<button class="btn btn-danger btn-xs delete_record"  data-id="'+data+'"  title="Delete"><i class="fa fa-trash"></i></button>';
                     }
                 },
             ],
@@ -165,6 +155,41 @@
             "sPaginationType": "full_numbers",
             "dom": 'T<"clear">lfrtip',
             "order": [[0, 'desc']]
+        });
+        
+        
+        
+        
+        $(document).on('click','.delete_record',function(){
+            let id = $(this).data('id');
+            console.log(id);
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Once deleted, you will not be able to recover this record!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post("{{route('destroy-employee-record')}}",  { uid: id }, function(data, status, xhr) {
+                            if(data.success === true)
+                            {
+                                oTable.draw();
+                                Toasts("Your record has been deleted!", '', "success");
+                            }else{
+                                Toasts("Something went wrong!", '', "error");
+                            }
+                        }).done(function() { 
+                        }).fail(function(jqxhr, settings, ex) { 
+                            console.log('failed, ' + ex); 
+                            Toasts("Something went wrong!", '', "error");
+                        });
+                    }
+                })
+
+
         });
 
     });
